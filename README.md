@@ -1,6 +1,6 @@
-# MAPI Examples
+# Mapy API Address Example
 
-Projekt pro testování práce s Mapy API NG v rámci různých knihoven na vykreslování mapy.
+Komplexní příklad užití funkcí Mapy API NG při práci se zadáváním adresy.
 
 ## Instalace projektu
 
