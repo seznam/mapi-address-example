@@ -1,4 +1,3 @@
-import { Value } from 'maplibre-gl';
 import { useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 import { API_KEY, API_URL } from '~/constants';
@@ -18,11 +17,6 @@ function getSuggestionValue(suggestion: ISuggestedItem) {
 	return suggestion.name;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function shouldRenderSuggestions(value: string) {
-	return value.trim().length > 2;
-}
-
 interface IStepSuggestProps {
 	onSelected: any;
 }
@@ -37,14 +31,14 @@ export default function StepSuggest({
 		setValue(event.target.value);
 	};
 
-	// eslint-disable-next-line @typescript-eslint/no-shadow
-	const onSuggestionsFetchRequested = function ({ value }: { value: string }) {
+	const onSuggestionsFetchRequested = function ({ value: query }: { value: string }) {
 		async function runSuggest() {
 			try {
 				const url = new URL(`${API_URL}suggest`);
 
 				url.searchParams.set('apikey', API_KEY);
-				url.searchParams.set('query', value);
+				url.searchParams.set('query', query);
+				url.searchParams.set('type', 'regional.address');
 
 				const response = await fetch(url.toString(), {
 					mode: 'cors',
@@ -69,11 +63,7 @@ export default function StepSuggest({
 	};
 
 	const onSuggestionSelected = function (_event: any, { suggestion }: { suggestion: ISuggestedItem }) {
-		// eslint-disable-next-line no-console
-		console.log('vybrano', suggestion);
-
 		setValue(getSuggestionValue(suggestion));
-
 		onSelected(suggestion);
 	};
 
@@ -85,7 +75,6 @@ export default function StepSuggest({
 			getSuggestionValue={getSuggestionValue}
 			renderSuggestion={renderSuggestion}
 			onSuggestionSelected={onSuggestionSelected}
-			shouldRenderSuggestions={shouldRenderSuggestions}
 			inputProps={{
 				value,
 				onChange: handleInputChange,

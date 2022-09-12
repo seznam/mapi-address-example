@@ -15,4 +15,13 @@ export interface ISuggestedItem {
 	};
 	regionalStructure: Array<IRegionalStructure>;
 	type: TRegionalType;
+	zip: string;
+}
+
+export interface IFormData {
+	street: string;
+	houseNumber: string;
+	municipality: string;
+	zip: string;
+	country: string;
 }
