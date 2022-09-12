@@ -1,0 +1,40 @@
+# vim: ft=yaml
+{{- if env "LABRADOR_EXTERNAL_IP" }}
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    szn.labrador: enabled
+    {{- if env "LABRADOR_CERT_NAME" }}
+    szn.labrador.certificate/https: {{ env "LABRADOR_CERT_NAME" }}
+    szn.labrador.template/https: https
+    {{- end }}
+    szn.labrador.template/http: http
+    {{- if env "LABRADOR_NETWORK_POLICIES" }}
+    szn.labrador.network-policy: {{ env "LABRADOR_NETWORK_POLICIES" }}
+    {{- end }}
+  name: mapi-address-example
+  labels:
+    app: mapi-address-example
+    # team se uvadi pro alerty
+    team: mapy.mda
+    admin_team: mapy.mda
+spec:
+  {{- if env "LABRADOR_EXTERNAL_IP" }}
+  loadBalancerIP: {{ env "LABRADOR_EXTERNAL_IP" }}
+  {{- end }}
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: {{ env "PROXY_HTTP_PORT" }}
+  {{- if env "LABRADOR_CERT_NAME" }}
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: {{ env "PROXY_HTTP_PORT" }}
+  {{- end }}
+  selector:
+    app: mapi-address-example
+  sessionAffinity: None
+{{- end }}
