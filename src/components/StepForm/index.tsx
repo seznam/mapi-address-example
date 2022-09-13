@@ -32,15 +32,15 @@ export default function StepForm({
 		</label>
 		<label>
 			<span>Město/obec</span>
-			<input name="municipality" value={formData.municipality} onChange={onChange} />
+			<input name="city" value={formData.city} onChange={onChange} />
 		</label>
 		<label>
 			<span>PSČ</span>
-			<input name="zip" value={formData.zip} onChange={onChange} />
+			<input name="zip" value={formData.zip} onChange={onChange} autoComplete="postal-code" />
 		</label>
 		<label>
 			<span>Stát</span>
-			<input name="country" value={formData.country} onChange={onChange} />
+			<input name="country" value={formData.country} onChange={onChange} autoComplete="country-name" />
 		</label>
 		<button onClick={onPrevious}>Zpět</button>
 		<button onClick={onNext}>Potvrdit adresu</button>

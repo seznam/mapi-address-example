@@ -5,7 +5,7 @@ export interface IRegionalStructure {
 	type: TRegionalType;
 }
 
-export interface ISuggestedItem {
+export interface IResponseItem {
 	label: string;
 	location: string;
 	name: string;
@@ -21,7 +21,7 @@ export interface ISuggestedItem {
 export interface IFormData {
 	street: string;
 	houseNumber: string;
-	municipality: string;
+	city: string;
 	zip: string;
 	country: string;
 }

@@ -1,42 +1,37 @@
 import { useState } from 'react';
-import { IFormData, ISuggestedItem } from '~/interfaces';
+import { IFormData, IResponseItem } from '~/interfaces';
 import StepSuggest from '~/components/StepSuggest';
 import StepForm from '~/components/StepForm';
+import StepCheck from '~/components/StepCheck';
+import { EMPTY_FORM } from '~/constants';
+import StepSummary from '~/components/StepSummary';
 
 export default function App() {
 	const [activeStep, setActiveStep] = useState(1);
-	const [suggestedItem, setSuggestedItem] = useState<ISuggestedItem>(null);
-	const [formData, setFormData] = useState<IFormData>({
-		street: '',
-		houseNumber: '',
-		municipality: '',
-		zip: '',
-		country: '',
-	});
-	const onSelected = (suggestion: ISuggestedItem) => {
-		setSuggestedItem(suggestion);
+	const [finalResult, setFinalResult] = useState<IResponseItem>(null);
+	const [formData, setFormData] = useState<IFormData>(EMPTY_FORM);
+
+	const onSelected = (suggestion: IResponseItem) => {
 		setFormData({
-			street: suggestion.regionalStructure.find(region => region.type === 'regional.street')?.name || '',
-			houseNumber: suggestion.regionalStructure.find(region => region.type === 'regional.address')?.name || '',
-			municipality: suggestion.regionalStructure.find(region => region.type === 'regional.municipality')?.name || '',
-			zip: suggestion.zip || '',
-			country: suggestion.regionalStructure.find(region => region.type === 'regional.country')?.name || '',
+			street: suggestion?.regionalStructure?.find(region => region.type === 'regional.street')?.name || '',
+			houseNumber: suggestion?.regionalStructure?.find(region => region.type === 'regional.address')?.name || '',
+			city: suggestion?.regionalStructure?.find(region => region.type === 'regional.municipality')?.name || '',
+			zip: suggestion?.zip || '',
+			country: suggestion?.regionalStructure?.find(region => region.type === 'regional.country')?.name || '',
 		});
 		setActiveStep(2);
 	};
+	const onRestart = () => {
+		setFormData(EMPTY_FORM);
+		setFinalResult(null);
+		setActiveStep(1);
+	}
 
 	return <main>
 		<h1>Krok {activeStep}</h1>
 		{activeStep === 1 ? <StepSuggest onSelected={onSelected} /> : null}
 		{activeStep === 2 ? <StepForm formData={formData} setFormData={setFormData} onPrevious={() => setActiveStep(1)} onNext={() => setActiveStep(3)} /> : null}
-		<h2>SuggestedItem</h2>
-		<pre>{JSON.stringify(suggestedItem, undefined, 2)}</pre>
-		<h2>FormData</h2>
-		<pre>{JSON.stringify(formData, undefined, 2)}</pre>
+		{activeStep === 3 ? <StepCheck formData={formData} setFinalResult={setFinalResult} onPrevious={() => setActiveStep(2)} onNext={() => setActiveStep(4)} /> : null}
+		{activeStep === 4 ? <StepSummary formData={formData} finalResult={finalResult} onRestart={onRestart} /> : null}
 	</main>;
-
-	/*
-	{activeStep === 3 ? <StepInvalidAddress formData={formData} /> : null}
-	{activeStep === 4 ? <StepSummary parts={addressParts} formData={formData} /> : null}
-	*/
 }
