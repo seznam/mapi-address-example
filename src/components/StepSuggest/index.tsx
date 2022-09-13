@@ -16,10 +16,12 @@ function getSuggestionValue(suggestion: IResponseItem) {
 }
 
 interface IStepSuggestProps {
+	lang: string;
 	onSelected: any;
 }
 
 export default function StepSuggest({
+	lang,
 	onSelected,
 }: IStepSuggestProps) {
 	const [suggestions, setSuggestions] = useState<Array<IResponseItem>>([]);
@@ -30,7 +32,7 @@ export default function StepSuggest({
 	};
 
 	const onSuggestionsFetchRequested = function ({ value: query }: { value: string }) {
-		runSuggest(query, setSuggestions);
+		runSuggest(lang, query, setSuggestions);
 	};
 
 	const onSuggestionsClearRequested = function () {

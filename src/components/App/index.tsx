@@ -3,13 +3,15 @@ import { IFormData, IResponseItem } from '~/interfaces';
 import StepSuggest from '~/components/StepSuggest';
 import StepForm from '~/components/StepForm';
 import StepCheck from '~/components/StepCheck';
-import { EMPTY_FORM } from '~/constants';
+import { EMPTY_FORM, LANGS } from '~/constants';
 import StepSummary from '~/components/StepSummary';
+import Settings from '~/components/Settings';
 
 export default function App() {
 	const [activeStep, setActiveStep] = useState(1);
 	const [finalResult, setFinalResult] = useState<IResponseItem>(null);
 	const [formData, setFormData] = useState<IFormData>(EMPTY_FORM);
+	const [lang, setLang] = useState(LANGS[0].value);
 
 	const onSelected = (suggestion: IResponseItem) => {
 		setFormData({
@@ -27,11 +29,14 @@ export default function App() {
 		setActiveStep(1);
 	}
 
-	return <main>
-		<h1>Krok {activeStep}</h1>
-		{activeStep === 1 ? <StepSuggest onSelected={onSelected} /> : null}
-		{activeStep === 2 ? <StepForm formData={formData} setFormData={setFormData} onPrevious={() => setActiveStep(1)} onNext={() => setActiveStep(3)} /> : null}
-		{activeStep === 3 ? <StepCheck formData={formData} setFinalResult={setFinalResult} onPrevious={() => setActiveStep(2)} onNext={() => setActiveStep(4)} /> : null}
-		{activeStep === 4 ? <StepSummary formData={formData} finalResult={finalResult} onRestart={onRestart} /> : null}
-	</main>;
+	return <div>
+		<Settings lang={lang} setLang={setLang} />
+		<main>
+			<h1>Krok {activeStep}</h1>
+			{activeStep === 1 ? <StepSuggest lang={lang} onSelected={onSelected} /> : null}
+			{activeStep === 2 ? <StepForm formData={formData} setFormData={setFormData} onPrevious={() => setActiveStep(1)} onNext={() => setActiveStep(3)} /> : null}
+			{activeStep === 3 ? <StepCheck lang={lang} formData={formData} setFinalResult={setFinalResult} onPrevious={() => setActiveStep(2)} onNext={() => setActiveStep(4)} /> : null}
+			{activeStep === 4 ? <StepSummary formData={formData} finalResult={finalResult} onRestart={onRestart} /> : null}
+		</main>
+	</div>;
 }

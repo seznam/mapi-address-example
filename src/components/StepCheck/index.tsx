@@ -3,6 +3,7 @@ import { IFormData, IResponseItem } from '~/interfaces';
 import { runGeocode, runSuggest } from '~/util';
 
 interface IStepCheckProps {
+	lang: string;
 	formData: IFormData;
 	setFinalResult: React.Dispatch<React.SetStateAction<IResponseItem>>;
 	onPrevious: () => void;
@@ -10,6 +11,7 @@ interface IStepCheckProps {
 }
 
 export default function StepCheck({
+	lang,
 	formData,
 	setFinalResult,
 	onPrevious,
@@ -19,8 +21,8 @@ export default function StepCheck({
 	const [suggestions, setSuggestions] = useState<Array<IResponseItem>>([]);
 
 	useEffect(() => {
-		runGeocode(formData, setGeocode);
-	}, []);
+		runGeocode(lang, formData, setGeocode);
+	}, [lang]);
 
 	useEffect(() => {
 		if (geocode) {
@@ -28,10 +30,10 @@ export default function StepCheck({
 				setFinalResult(geocode[0]);
 				onNext();
 			} else {
-				runSuggest(`${formData.street} ${formData.houseNumber}, ${formData.city}, ${formData.zip}, ${formData.country}`, setSuggestions);
+				runSuggest(lang, `${formData.street} ${formData.houseNumber}, ${formData.city}, ${formData.zip}, ${formData.country}`, setSuggestions);
 			}
 		}
-	}, [geocode]);
+	}, [geocode, lang]);
 
 	return <div>
 		{geocode

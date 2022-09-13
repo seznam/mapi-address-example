@@ -9,3 +9,14 @@ export const EMPTY_FORM = {
 	zip: '',
 	country: '',
 };
+
+export const LANGS = [{
+	value: 'cs',
+	title: 'česky',
+}, {
+	value: 'en',
+	title: 'anglicky',
+}, {
+	value: 'de',
+	title: 'německy',
+}];

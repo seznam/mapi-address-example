@@ -1,11 +1,12 @@
 import { API_KEY, API_URL } from '~/constants';
 import { IFormData, IResponseItem } from '~/interfaces';
 
-export async function runSuggest(query: string, setSuggestions: React.Dispatch<React.SetStateAction<IResponseItem[]>>) {
+export async function runSuggest(lang: string, query: string, setSuggestions: React.Dispatch<React.SetStateAction<IResponseItem[]>>) {
 	try {
 		const url = new URL(`${API_URL}suggest`);
 
 		url.searchParams.set('apikey', API_KEY);
+		url.searchParams.set('lang', lang);
 		url.searchParams.set('query', query);
 		url.searchParams.set('type', 'regional.address');
 
@@ -24,11 +25,12 @@ export async function runSuggest(query: string, setSuggestions: React.Dispatch<R
 	}
 }
 
-export async function runGeocode(formData: IFormData, setGeocode: React.Dispatch<React.SetStateAction<IResponseItem[]>>) {
+export async function runGeocode(lang: string, formData: IFormData, setGeocode: React.Dispatch<React.SetStateAction<IResponseItem[]>>) {
 	try {
 		const url = new URL(`${API_URL}geocode`);
 
 		url.searchParams.set('apikey', API_KEY);
+		url.searchParams.set('lang', lang);
 		url.searchParams.set('query', `${formData.street} ${formData.houseNumber}, ${formData.city}, ${formData.zip}, ${formData.country}`);
 		url.searchParams.set('type', 'regional.address');
 
