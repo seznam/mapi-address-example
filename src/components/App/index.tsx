@@ -15,13 +15,23 @@ export default function App() {
 	const [lang, setLang] = useState(LANGS[0].value);
 
 	const onSelected = (suggestion: IResponseItem) => {
-		setFormData({
-			street: suggestion?.regionalStructure?.find(region => region.type === 'regional.street')?.name || '',
-			houseNumber: suggestion?.regionalStructure?.find(region => region.type === 'regional.address')?.name || '',
-			city: suggestion?.regionalStructure?.find(region => region.type === 'regional.municipality')?.name || '',
-			zip: suggestion?.zip || '',
-			country: suggestion?.regionalStructure?.find(region => region.type === 'regional.country')?.name || '',
-		});
+		if (suggestion?.regionalStructure) {
+			const streetIndex = suggestion.regionalStructure.findIndex(region => region.type === 'regional.address');
+
+			setFormData({
+				street: streetIndex === -1
+					? suggestion.regionalStructure.find(region => region.type === 'regional.street')?.name || ''
+					: suggestion.regionalStructure.length > streetIndex
+						? suggestion.regionalStructure[streetIndex + 1].name
+						: '',
+				houseNumber: suggestion.regionalStructure.find(region => region.type === 'regional.address')?.name || '',
+				city: suggestion.regionalStructure.find(region => region.type === 'regional.municipality')?.name || '',
+				zip: suggestion.zip || '',
+				country: suggestion.regionalStructure.find(region => region.type === 'regional.country')?.name || '',
+			});
+		} else {
+			setFormData(EMPTY_FORM);
+		}
 		setActiveStep(2);
 	};
 	const onRestart = () => {
