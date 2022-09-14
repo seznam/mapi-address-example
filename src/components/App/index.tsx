@@ -6,6 +6,7 @@ import StepCheck from '~/components/StepCheck';
 import { EMPTY_FORM, LANGS } from '~/constants';
 import StepSummary from '~/components/StepSummary';
 import Settings from '~/components/Settings';
+import "./styles.less";
 
 export default function App() {
 	const [activeStep, setActiveStep] = useState(1);
@@ -29,14 +30,16 @@ export default function App() {
 		setActiveStep(1);
 	}
 
-	return <div>
+	return <div className="app">
+		<h1>Validace adres</h1>
+		<p>Ukázka použití funkcí Geocode a Suggest z Mapy.cz API NG</p>
 		<Settings lang={lang} setLang={setLang} />
-		<main>
-			<h1>Krok {activeStep}</h1>
+		<main className="app__main">
+			<h2>Krok {activeStep}</h2>
 			{activeStep === 1 ? <StepSuggest lang={lang} onSelected={onSelected} /> : null}
 			{activeStep === 2 ? <StepForm formData={formData} setFormData={setFormData} onPrevious={() => setActiveStep(1)} onNext={() => setActiveStep(3)} /> : null}
 			{activeStep === 3 ? <StepCheck lang={lang} formData={formData} setFinalResult={setFinalResult} onPrevious={() => setActiveStep(2)} onNext={() => setActiveStep(4)} /> : null}
-			{activeStep === 4 ? <StepSummary formData={formData} finalResult={finalResult} onRestart={onRestart} /> : null}
+			{activeStep === 4 ? <StepSummary lang={lang} formData={formData} finalResult={finalResult} onRestart={onRestart} /> : null}
 		</main>
 	</div>;
 }

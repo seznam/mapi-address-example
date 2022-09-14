@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IFormData, IResponseItem } from '~/interfaces';
 import { runGeocode, runSuggest } from '~/util';
+import "./styles.less";
 
 interface IStepCheckProps {
 	lang: string;
@@ -35,17 +36,19 @@ export default function StepCheck({
 		}
 	}, [geocode, lang]);
 
-	return <div>
+	return <div className="stepCheck">
 		{geocode
-			? <div>
+			? <>
 				<p>Pozor, tuto adresu nedokážeme dohledat.</p>
-				<button onClick={onPrevious}>Zpět na zadání</button>
-				<button onClick={onNext}>Pokračovat, adresa je určitě správně</button>
+				<div className="toolbar">
+					<button onClick={onPrevious} className="primary">Zpět na zadání</button>
+					<button onClick={onNext}>Pokračovat, adresa je určitě správně</button>
+				</div>
 				{suggestions.length > 0
 					? <>
-						<p>Nemysleli jste náhodou:</p>
-						<ul>
-							{suggestions.map(item => <li key={item.label + item.position.lon + item.position.lat}>
+						<h3>Nemysleli jste náhodou:</h3>
+						<ul className="stepCheck__list">
+							{suggestions.map(item => <li key={item.label + item.position.lon + item.position.lat} className="stepCheck__suggestion">
 								{item.name} ({item.location})
 								<button onClick={() => {
 									setFinalResult(item);
@@ -55,7 +58,7 @@ export default function StepCheck({
 						</ul>
 					</>
 					: null}
-			</div>
+			</>
 			: <progress />}
 	</div>;
 }

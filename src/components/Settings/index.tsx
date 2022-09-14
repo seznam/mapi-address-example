@@ -1,5 +1,6 @@
 import React from 'react';
 import { LANGS } from '~/constants';
+import "./styles.less";
 
 interface ISettingsProps {
 	lang: string;
@@ -14,9 +15,10 @@ export default function Settings({
 		setLang(event.target.value);
 	}
 
-	return <div>
-		<select onChange={onLangChange}>
-			{LANGS.map(language => <option value={language.value} key={language.value} selected={lang === language.value}>{language.title}</option>)}
+	return <div className="settings">
+		Odpovědi API budou
+		<select onChange={onLangChange} value={lang}>
+			{LANGS.map(language => <option value={language.value} key={language.value}>{language.title}</option>)}
 		</select>
 	</div>;
 }

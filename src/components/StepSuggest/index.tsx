@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 import { IResponseItem } from '~/interfaces';
 import { runSuggest } from '~/util';
+import "./styles.less";
 
 function renderSuggestion(suggestion: IResponseItem) {
 	return <div>
@@ -44,7 +45,7 @@ export default function StepSuggest({
 		onSelected(suggestion);
 	};
 
-	return <div>
+	return <div className="stepSuggest">
 		<Autosuggest
 			suggestions={suggestions}
 			onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -55,8 +56,10 @@ export default function StepSuggest({
 			inputProps={{
 				value,
 				onChange: handleInputChange,
+				type: "text",
 			}}
 		/>
+		nebo
 		<button onClick={() => onSelected(null)}>Zadat adresu ručně</button>
 	</div>;
 }
