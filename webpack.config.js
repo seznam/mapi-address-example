@@ -142,6 +142,7 @@ const config = env => {
 			historyApiFallback: true,
 			port: 8080,
 			host: 'localhost',
+			allowedHosts: 'all',
 		},
 		plugins,
 		optimization: {
