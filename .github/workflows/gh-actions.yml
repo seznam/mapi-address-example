@@ -26,7 +26,12 @@ jobs:
         npm install
         npm run build-prod
         
-    - name: Deploy 🚀
+    - name: Deploy to gh-pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
+        branch: gh-pages
         folder: dist
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        single-commit: true
+        git-config-name: Jakub Kraft
+        git-config-email: jakub.kraft@gmail.com
