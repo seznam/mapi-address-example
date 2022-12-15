@@ -33,6 +33,6 @@ jobs:
       with:
         branch: gh-pages
         folder: dist
-        single-commit: true
+        #single-commit: true
         git-config-name: Jakub Kraft
         git-config-email: jakub.kraft@gmail.com
