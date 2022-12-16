@@ -42,7 +42,7 @@ export default function App() {
 
 	return <div className="app">
 		<h1>Validace adres</h1>
-		<p>Ukázka použití funkcí Geocode a Suggest z Mapy.cz API NG</p>
+		<p>Ukázka použití funkcí Geocode a Suggest z REST API Mapy.cz</p>
 		<Settings lang={lang} setLang={setLang} />
 		<main className="app__main">
 			<h2>Krok {activeStep}</h2>

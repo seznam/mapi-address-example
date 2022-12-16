@@ -1,6 +1,8 @@
 # Mapy API Address Example
 
-Komplexní příklad užití funkcí Mapy API NG při práci se zadáváním adresy.
+Komplexní příklad užití funkcí REST API Mapy.cz při práci se zadáváním adresy.
+
+[Demo](https://seznam.github.io/mapi-address-example/)
 
 ## Instalace projektu
 
