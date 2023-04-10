@@ -1,6 +1,6 @@
 import React from 'react';
 import { LANGS } from '~/constants';
-import "./styles.less";
+import './styles.less';
 
 interface ISettingsProps {
 	lang: string;
@@ -11,9 +11,9 @@ export default function Settings({
 	lang,
 	setLang,
 }: ISettingsProps) {
-	const onLangChange = function(event: React.ChangeEvent<HTMLSelectElement>) {
+	const onLangChange = function (event: React.ChangeEvent<HTMLSelectElement>) {
 		setLang(event.target.value);
-	}
+	};
 
 	return <div className="settings">
 		Odpovědi API budou

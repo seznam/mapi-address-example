@@ -1,7 +1,8 @@
+import { Dispatch, SetStateAction } from 'react';
 import { API_KEY, API_URL } from '~/constants';
 import { IFormData, IResponseItem } from '~/interfaces';
 
-export async function runSuggest(lang: string, query: string, setSuggestions: React.Dispatch<React.SetStateAction<IResponseItem[]>>) {
+export async function runSuggest(lang: string, query: string, setSuggestions: Dispatch<SetStateAction<IResponseItem[]>>) {
 	try {
 		const url = new URL(`${API_URL}suggest`);
 
@@ -25,7 +26,7 @@ export async function runSuggest(lang: string, query: string, setSuggestions: Re
 	}
 }
 
-export async function runGeocode(lang: string, formData: IFormData, setGeocode: React.Dispatch<React.SetStateAction<IResponseItem[]>>) {
+export async function runGeocode(lang: string, formData: IFormData, setGeocode: Dispatch<SetStateAction<IResponseItem[]>>) {
 	try {
 		const url = new URL(`${API_URL}geocode`);
 

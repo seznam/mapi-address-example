@@ -6,7 +6,7 @@ import StepCheck from '~/components/StepCheck';
 import { EMPTY_FORM, LANGS } from '~/constants';
 import StepSummary from '~/components/StepSummary';
 import Settings from '~/components/Settings';
-import "./styles.less";
+import './styles.less';
 
 export default function App() {
 	const [activeStep, setActiveStep] = useState(1);
@@ -38,7 +38,7 @@ export default function App() {
 		setFormData(EMPTY_FORM);
 		setFinalResult(null);
 		setActiveStep(1);
-	}
+	};
 
 	return <div className="app">
 		<h1>Validace adres</h1>

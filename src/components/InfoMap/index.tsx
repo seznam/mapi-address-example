@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { API_KEY, API_URL } from '~/constants';
 import maplibregl from 'maplibre-gl';

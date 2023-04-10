@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { IFormData, IResponseItem } from '~/interfaces';
 import { runGeocode, runSuggest } from '~/util';
-import "./styles.less";
+import './styles.less';
 
 interface IStepCheckProps {
 	lang: string;
 	formData: IFormData;
-	setFinalResult: React.Dispatch<React.SetStateAction<IResponseItem>>;
+	setFinalResult: Dispatch<SetStateAction<IResponseItem>>;
 	onPrevious: () => void;
 	onNext: () => void;
 }
@@ -41,8 +41,8 @@ export default function StepCheck({
 			? <>
 				<p>Pozor, tuto adresu nedokážeme dohledat.</p>
 				<div className="toolbar">
-					<button onClick={onPrevious} className="primary">Zpět na zadání</button>
-					<button onClick={onNext}>Pokračovat, adresa je určitě správně</button>
+					<button type="button" onClick={onPrevious} className="primary">Zpět na zadání</button>
+					<button type="button" onClick={onNext}>Pokračovat, adresa je určitě správně</button>
 				</div>
 				{suggestions.length > 0
 					? <>
@@ -50,7 +50,7 @@ export default function StepCheck({
 						<ul className="stepCheck__list">
 							{suggestions.map(item => <li key={item.label + item.position.lon + item.position.lat} className="stepCheck__suggestion">
 								{item.name} ({item.location})
-								<button onClick={() => {
+								<button type="button" onClick={() => {
 									setFinalResult(item);
 									onNext();
 								}}>Vybrat</button>

@@ -1,6 +1,6 @@
 import { IFormData, IResponseItem } from '~/interfaces';
 import InfoMap from '~/components/InfoMap';
-import "./styles.less";
+import './styles.less';
 
 interface IStepSummaryProps {
 	lang: string;
@@ -27,7 +27,7 @@ export default function StepSummary({
 				<pre>{JSON.stringify(formData, undefined, 2)}</pre>
 			</>}
 		<div className="toolbar">
-			<button onClick={onRestart} className="primary">Restartovat ukázku</button>
+			<button type="button" onClick={onRestart} className="primary">Restartovat ukázku</button>
 		</div>
 	</div>;
 }

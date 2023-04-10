@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import { IFormData } from '~/interfaces';
-import "./styles.less";
+import './styles.less';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 interface IStepFormProps {
 	formData: IFormData;
-	setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
+	setFormData: Dispatch<SetStateAction<IFormData>>;
 	onPrevious: () => void;
 	onNext: () => void;
 }
@@ -15,12 +15,12 @@ export default function StepForm({
 	onPrevious,
 	onNext,
 }: IStepFormProps) {
-	const onChange = function(event: React.ChangeEvent<HTMLInputElement>) {
+	const onChange = function (event: ChangeEvent<HTMLInputElement>) {
 		setFormData({
 			...formData,
 			[event.target.name]: event.target.value,
 		});
-	}
+	};
 
 	return <div className="stepForm">
 		<div className="stepForm__form">
@@ -46,8 +46,8 @@ export default function StepForm({
 			</label>
 		</div>
 		<div className="toolbar">
-			<button onClick={onPrevious}>Zpět</button>
-			<button onClick={onNext} className="primary">Potvrdit adresu</button>
+			<button type="button" onClick={onPrevious}>Zpět</button>
+			<button type="button" onClick={onNext} className="primary">Potvrdit adresu</button>
 		</div>
 	</div>;
 }

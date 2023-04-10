@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 import { IResponseItem } from '~/interfaces';
 import { runSuggest } from '~/util';
-import "./styles.less";
+import './styles.less';
 
 function renderSuggestion(suggestion: IResponseItem) {
 	return <div>
@@ -14,6 +14,15 @@ function renderSuggestion(suggestion: IResponseItem) {
 
 function getSuggestionValue(suggestion: IResponseItem) {
 	return suggestion.name;
+}
+
+function renderSuggestionsContainer({ containerProps, children }: { containerProps: any, children: any }) {
+	return <div {...containerProps}>
+		{children}
+		<div className="stepSuggest__attribution">
+			Hledají <a href="https://mapy.cz/" target="_blank" rel="noreferrer"><img src="https://api.mapy.cz/img/api/logo-small.svg" alt="Mapy.cz" /></a>
+		</div>
+	</div>;
 }
 
 interface IStepSuggestProps {
@@ -28,7 +37,7 @@ export default function StepSuggest({
 	const [suggestions, setSuggestions] = useState<Array<IResponseItem>>([]);
 	const [value, setValue] = useState('');
 
-	const handleInputChange = function (event: React.ChangeEvent<HTMLInputElement>) {
+	const handleInputChange = function (event: ChangeEvent<HTMLInputElement>) {
 		setValue(event.target.value);
 	};
 
@@ -56,10 +65,11 @@ export default function StepSuggest({
 			inputProps={{
 				value,
 				onChange: handleInputChange,
-				type: "text",
+				type: 'text',
 			}}
+			renderSuggestionsContainer={renderSuggestionsContainer}
 		/>
 		nebo
-		<button onClick={() => onSelected(null)}>Zadat adresu ručně</button>
+		<button type="button" onClick={() => onSelected(null)}>Zadat adresu ručně</button>
 	</div>;
 }
